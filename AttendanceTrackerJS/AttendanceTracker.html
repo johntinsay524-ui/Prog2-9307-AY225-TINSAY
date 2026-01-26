@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker Pro - Login & Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+
+        .alert.error {
+            background: #fee;
+            color: #c33;
+            border: 2px solid #fcc;
+        }
+
+        .alert.success {
+            background: #efe;
+            color: #3c3;
+            border: 2px solid #cfc;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .attendance-summary {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .attendance-summary h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            background: #28a745;
+        }
+
+        .download-btn:hover {
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .credentials-hint {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .credentials-hint strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            margin-top: 15px;
+        }
+
+        .logout-btn:hover {
+            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .strength-weak {
+            background: #dc3545;
+            width: 33%;
+        }
+
+        .strength-medium {
+            background: #ffc107;
+            width: 66%;
+        }
+
+        .strength-strong {
+            background: #28a745;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="icon">🔐</span>
+                Attendance Tracker
+            </h1>
+            <p>Secure Login & Time Tracking System</p>
+        </div>
+
+        <div class="content">
+            <!-- Login Form -->
+            <div id="loginSection">
+                <div class="credentials-hint">
+                    <strong>Demo Account:</strong>
+                    Username: admin | Password: password123
+                </div>
+
+                <div id="loginAlert" class="alert"></div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">👤 Username:</label>
+                        <input 
+                            type="text" 
+                            id="loginUsername" 
+                            placeholder="Enter your username"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">🔑 Password:</label>
+                        <input 
+                            type="password" 
+                            id="loginPassword" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn">
+                        Log In & Record Attendance
+                    </button>
+                </form>
+
+                <div class="toggle-link" id="showSignup">
+                    Don't have an account? <strong>Sign Up</strong>
+                </div>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="signupSection" class="hidden">
+                <div id="signupAlert" class="alert"></div>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupFullName">👤 Full Name:</label>
+                        <input 
+                            type="text" 
+                            id="signupFullName" 
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupUsername">📧 Username:</label>
+                        <input 
+                            type="text" 
+                            id="signupUsername" 
+                            placeholder="Choose a username"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">🔑 Password:</label>
+                        <input 
+                            type="password" 
+                            id="signupPassword" 
+                            placeholder="Create a password (min. 6 characters)"
+                            required
+                        >
+                        <div class="password-strength hidden" id="passwordStrength">
+                            <div class="strength-bar" id="strengthBar"></div>
+                            <span id="strengthText"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">🔒 Confirm Password:</label>
+                        <input 
+                            type="password" 
+                            id="signupConfirmPassword" 
+                            placeholder="Re-enter your password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn">
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="toggle-link" id="showLogin">
+                    Already have an account? <strong>Log In</strong>
+                </div>
+            </div>
+
+            <!-- Attendance Summary (Hidden initially) -->
+            <div id="attendanceSection" class="hidden">
+                <div class="alert success" style="display: block;">
+                    ✓ Login successful! Attendance recorded.
+                </div>
+
+                <div class="attendance-summary">
+                    <h3>📋 Attendance Summary</h3>
+                    <div class="info-row">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value" id="displayFullName"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Username:</span>
+                        <span class="info-value" id="displayUsername"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value" id="displayDate"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Time:</span>
+                        <span class="info-value" id="displayTime"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Full Timestamp:</span>
+                        <span class="info-value" id="displayTimestamp"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Session ID:</span>
+                        <span class="info-value" id="displaySessionId"></span>
+                    </div>
+                </div>
+
+                <button id="downloadBtn" class="btn download-btn">
+                    💾 Download Attendance Summary
+                </button>
+
+                <button id="logoutBtn" class="btn logout-btn">
+                    🚪 Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // DATABASE LAYER: User Management System
+        // ========================================
+        
+        /**
+         * Database class for managing user accounts
+         * Simulates a database with CRUD operations
+         */
+        class UserDatabase {
+            constructor() {
+                this.tableName = 'userAccounts';
+                this.initializeDatabase();
+            }
+
+            /**
+             * Initialize database with default records
+             */
+            initializeDatabase() {
+                if (!localStorage.getItem(this.tableName)) {
+                    const defaultRecords = [
+                        {
+                            id: this.generateId(),
+                            fullName: 'Admin User',
+                            username: 'admin',
+                            password: 'password123',
+                            createdAt: new Date().toISOString(),
+                            lastLogin: null
+                        }
+                    ];
+                    this.saveToStorage(defaultRecords);
+                }
+            }
+
+            /**
+             * Generate unique ID for records
+             */
+            generateId() {
+                return 'USER_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            }
+
+            /**
+             * CRUD Operation: CREATE - Insert new user record
+             */
+            insert(fullName, username, password) {
+                const records = this.selectAll();
+                
+                const newRecord = {
+                    id: this.generateId(),
+                    fullName: fullName,
+                    username: username,
+                    password: password,
+                    createdAt: new Date().toISOString(),
+                    lastLogin: null
+                };
+
+                records.push(newRecord);
+                this.saveToStorage(records);
+                return newRecord;
+            }
+
+            /**
+             * CRUD Operation: READ - Select all records
+             */
+            selectAll() {
+                const data = localStorage.getItem(this.tableName);
+                return data ? JSON.parse(data) : [];
+            }
+
+            /**
+             * CRUD Operation: READ - Select user by username
+             */
+            selectByUsername(username) {
+                const records = this.selectAll();
+                return records.find(record => record.username === username);
+            }
+
+            /**
+             * CRUD Operation: UPDATE - Update last login timestamp
+             */
+            updateLastLogin(username) {
+                const records = this.selectAll();
+                const record = records.find(r => r.username === username);
+                
+                if (record) {
+                    record.lastLogin = new Date().toISOString();
+                    this.saveToStorage(records);
+                    return true;
+                }
+                return false;
+            }
+
+            /**
+             * CRUD Operation: DELETE - Remove user by username
+             */
+            delete(username) {
+                let records = this.selectAll();
+                const initialLength = records.length;
+                records = records.filter(r => r.username !== username);
+                
+                if (records.length < initialLength) {
+                    this.saveToStorage(records);
+                    return true;
+                }
+                return false;
+            }
+
+            /**
+             * Check if username exists in database
+             */
+            exists(username) {
+                return this.selectByUsername(username) !== undefined;
+            }
+
+            /**
+             * Authenticate user credentials
+             */
+            authenticate(username, password) {
+                const user = this.selectByUsername(username);
+                if (user && user.password === password) {
+                    this.updateLastLogin(username);
+                    return user;
+                }
+                return null;
+            }
+
+            /**
+             * Get total user count
+             */
+            count() {
+                return this.selectAll().length;
+            }
+
+            /**
+             * Save records to localStorage (simulates database commit)
+             */
+            saveToStorage(records) {
+                localStorage.setItem(this.tableName, JSON.stringify(records));
+            }
+
+            /**
+             * Clear all records (simulates DROP TABLE)
+             */
+            dropTable() {
+                localStorage.removeItem(this.tableName);
+                this.initializeDatabase();
+            }
+        }
+
+        // Initialize database instance
+        const userDB = new UserDatabase();
+
+        // Legacy compatibility
+        let userAccounts = userDB.selectAll();
+        function saveUserAccounts() {
+            // This function is now handled by the database layer
+            userAccounts = userDB.selectAll();
+        }
+
+        // ========================================
+        // AUDIO: Create beep sound using Web Audio API
+        // ========================================
+        function playBeep() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // ========================================
+        // UTILITY: Format timestamp
+        // ========================================
+        function formatTimestamp(date) {
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+
+            return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // ========================================
+        // UTILITY: Generate session ID
+        // ========================================
+        function generateSessionId() {
+            return 'SESSION-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        // ========================================
+        // UI: Show alert message
+        // ========================================
+        function showAlert(elementId, message, type) {
+            const alertBox = document.getElementById(elementId);
+            alertBox.textContent = message;
+            alertBox.className = `alert ${type}`;
+            alertBox.style.display = 'block';
+
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 5000);
+        }
+
+        // ========================================
+        // PASSWORD STRENGTH: Check password strength
+        // ========================================
+        document.getElementById('signupPassword').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthDiv = document.getElementById('passwordStrength');
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+
+            if (password.length === 0) {
+                strengthDiv.classList.add('hidden');
+                return;
+            }
+
+            strengthDiv.classList.remove('hidden');
+
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 10) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            if (strength <= 2) {
+                strengthBar.className = 'strength-bar strength-weak';
+                strengthText.textContent = 'Weak password';
+                strengthText.style.color = '#dc3545';
+            } else if (strength <= 3) {
+                strengthBar.className = 'strength-bar strength-medium';
+                strengthText.textContent = 'Medium password';
+                strengthText.style.color = '#ffc107';
+            } else {
+                strengthBar.className = 'strength-bar strength-strong';
+                strengthText.textContent = 'Strong password';
+                strengthText.style.color = '#28a745';
+            }
+        });
+
+        // ========================================
+        // TOGGLE: Switch between login and signup
+        // ========================================
+        document.getElementById('showSignup').addEventListener('click', function() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('signupSection').classList.remove('hidden');
+        });
+
+        document.getElementById('showLogin').addEventListener('click', function() {
+            document.getElementById('signupSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        });
+
+        // ========================================
+        // SIGNUP: Handle new user registration
+        // ========================================
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('signupFullName').value.trim();
+            const username = document.getElementById('signupUsername').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            // Validate inputs
+            if (fullName.length < 2) {
+                playBeep();
+                showAlert('signupAlert', '❌ Please enter a valid full name.', 'error');
+                return;
+            }
+
+            if (username.length < 3) {
+                playBeep();
+                showAlert('signupAlert', '❌ Username must be at least 3 characters.', 'error');
+                return;
+            }
+
+            // Check if username already exists
+            if (userDB.exists(username)) {
+                playBeep();
+                showAlert('signupAlert', '❌ Username already exists. Please choose another.', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                playBeep();
+                showAlert('signupAlert', '❌ Password must be at least 6 characters.', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                playBeep();
+                showAlert('signupAlert', '❌ Passwords do not match!', 'error');
+                return;
+            }
+
+            // Create new account using database INSERT operation
+            const newUser = userDB.insert(fullName, username, password);
+
+            console.log('✓ Database INSERT operation completed');
+            console.log('New user record created:', newUser.id);
+
+            showAlert('signupAlert', '✓ Account created successfully! Please log in.', 'success');
+
+            // Clear form
+            document.getElementById('signupForm').reset();
+            document.getElementById('passwordStrength').classList.add('hidden');
+
+            // Switch to login after 2 seconds
+            setTimeout(() => {
+                document.getElementById('signupSection').classList.add('hidden');
+                document.getElementById('loginSection').classList.remove('hidden');
+            }, 2000);
+        });
+
+        // ========================================
+        // LOGIN: Handle user login
+        // ========================================
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            // Authenticate user using database
+            const user = userDB.authenticate(username, password);
+
+            if (user) {
+                console.log('✓ Database AUTHENTICATION successful');
+                console.log('User record:', user.id);
+                console.log('Last login updated:', user.lastLogin);
+
+                // Login successful
+                const loginTime = new Date();
+                const timestamp = formatTimestamp(loginTime);
+                const sessionId = generateSessionId();
+
+                const attendanceData = {
+                    fullName: user.fullName,
+                    username: username,
+                    timestamp: timestamp,
+                    date: loginTime.toLocaleDateString(),
+                    time: loginTime.toLocaleTimeString(),
+                    sessionId: sessionId
+                };
+
+                displayAttendanceSummary(attendanceData);
+
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('attendanceSection').classList.remove('hidden');
+
+            } else {
+                // Login failed
+                playBeep();
+                showAlert('loginAlert', '❌ Invalid username or password! Please try again.', 'error');
+                document.getElementById('loginPassword').value = '';
+            }
+        });
+
+        // ========================================
+        // DISPLAY: Show attendance summary
+        // ========================================
+        function displayAttendanceSummary(data) {
+            document.getElementById('displayFullName').textContent = data.fullName;
+            document.getElementById('displayUsername').textContent = data.username;
+            document.getElementById('displayDate').textContent = data.date;
+            document.getElementById('displayTime').textContent = data.time;
+            document.getElementById('displayTimestamp').textContent = data.timestamp;
+            document.getElementById('displaySessionId').textContent = data.sessionId;
+
+            window.currentAttendanceData = data;
+        }
+
+        // ========================================
+        // DOWNLOAD: Generate and download attendance file
+        // ========================================
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const data = window.currentAttendanceData;
+
+            const fileContent = `
+ATTENDANCE SUMMARY REPORT
+========================================
+
+Full Name:      ${data.fullName}
+Username:       ${data.username}
+Date:           ${data.date}
+Time:           ${data.time}
+Full Timestamp: ${data.timestamp}
+Session ID:     ${data.sessionId}
+
+========================================
+Generated by Attendance Tracker Pro
+© 2026 - Secure & Reliable
+========================================
+            `.trim();
+
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `attendance_${data.username}_${Date.now()}.txt`;
+            link.click();
+
+            window.URL.revokeObjectURL(link.href);
+        });
+
+        // ========================================
+        // LOGOUT: Reset to login screen
+        // ========================================
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            
+            document.getElementById('attendanceSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+            
+            showAlert('loginAlert', '✓ You have been logged out successfully.', 'success');
+        });
+    </script>
+</body>
+</html>
