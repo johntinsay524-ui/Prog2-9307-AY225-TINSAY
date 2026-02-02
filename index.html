@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Grades</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #333; padding: 5px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    input { margin: 2px; }
+    .delete-btn { cursor: pointer; color: red; }
+  </style>
+</head>
+<body>
+
+<h2>Student Grades</h2>
+
+<form id="addStudentForm">
+  <input type="text" name="StudentID" placeholder="ID" required>
+  <input type="text" name="first_name" placeholder="First Name" required>
+  <input type="text" name="last_name" placeholder="Last Name" required>
+  <input type="number" name="LAB1" placeholder="Lab1" required>
+  <input type="number" name="LAB2" placeholder="Lab2" required>
+  <input type="number" name="LAB3" placeholder="Lab3" required>
+  <input type="number" name="PRELIM" placeholder="Prelim" required>
+  <input type="number" name="ATTENDANCE" placeholder="Attendance" required>
+  <button type="submit">Add Student</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>StudentID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Lab 1</th>
+      <th>Lab 2</th>
+      <th>Lab 3</th>
+      <th>Prelim Exam</th>
+      <th>Attendance</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="studentTableBody">
+    <!-- Rows will go here -->
+  </tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
