@@ -24,7 +24,7 @@ function runMP18(rows) {
   `;
 
   if (removed.length === 0) {
-    html += `<div class="all-clean">✅ All ${rows.length} rows are complete — nothing removed.</div>`;
+    html += `<div class="all-clean">All ${rows.length} rows are complete — nothing removed.</div>`;
   } else {
     html += `<div class="removed-list-header">Removed Rows (${removed.length})</div>`;
     removed.forEach(r => {

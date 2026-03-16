@@ -12,7 +12,7 @@ function runMP17(rows) {
 
   let html = `
     <div class="winner-banner">
-      <span class="winner-icon">🏆</span>
+      <div class="winner-icon">#1</div>
       <div class="winner-text">
         <div class="label">Overall Longest Entry</div>
         <div class="value">${longest[wi] || '(empty)'}</div>
@@ -27,7 +27,7 @@ function runMP17(rows) {
     const val = longest[ci];
     const pct = maxLen > 0 ? (val.length / maxLen * 100) : 0;
     html += `
-      <div class="col-card ${ci === wi ? 'highlight' : ''}" style="animation-delay:${ci * 0.05}s">
+      <div class="col-card ${ci === wi ? 'highlight' : ''}">
         <div class="col-label">${col}</div>
         <div class="col-value">${val || '<em style="color:var(--muted)">empty</em>'}</div>
         <div class="col-bar-wrap"><div class="col-bar" style="width:0%" data-w="${pct}%"></div></div>
