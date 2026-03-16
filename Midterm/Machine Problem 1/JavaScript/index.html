@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Sales Segmentation</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="school">UPHSD Molino · BS Computer Science – Data Science · Programming 2</div>
+    <h1>Game Sales <span>Segmentation</span></h1>
+  </header>
+
+  <div id="upload-zone" onclick="document.getElementById('csv-input').click()">
+    <input type="file" id="csv-input" accept=".csv"/>
+    <div class="upload-text"><strong>Click to upload</strong> or drag & drop your CSV file</div>
+    <div id="file-name"></div>
+  </div>
+
+  <div id="results">
+
+    <div class="stats-row">
+      <div class="stat-card plat">
+        <div class="stat-label">Platinum</div>
+        <div class="stat-count" id="cnt-plat">0</div>
+        <div class="stat-range">&gt; 10M sales</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-label">Gold</div>
+        <div class="stat-count" id="cnt-gold">0</div>
+        <div class="stat-range">5M – 10M</div>
+      </div>
+      <div class="stat-card silv">
+        <div class="stat-label">Silver</div>
+        <div class="stat-count" id="cnt-silv">0</div>
+        <div class="stat-range">1M – 4.99M</div>
+      </div>
+      <div class="stat-card brnz">
+        <div class="stat-label">Bronze</div>
+        <div class="stat-count" id="cnt-brnz">0</div>
+        <div class="stat-range">&lt; 1M sales</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="section-label">Distribution</div>
+      <div class="bar-row plat">
+        <div class="bar-name">Platinum</div>
+        <div class="bar-track"><div class="bar-fill" id="bar-plat"></div></div>
+        <div class="bar-count" id="bar-cnt-plat"></div>
+      </div>
+      <div class="bar-row gold">
+        <div class="bar-name">Gold</div>
+        <div class="bar-track"><div class="bar-fill" id="bar-gold"></div></div>
+        <div class="bar-count" id="bar-cnt-gold"></div>
+      </div>
+      <div class="bar-row silv">
+        <div class="bar-name">Silver</div>
+        <div class="bar-track"><div class="bar-fill" id="bar-silv"></div></div>
+        <div class="bar-count" id="bar-cnt-silv"></div>
+      </div>
+      <div class="bar-row brnz">
+        <div class="bar-name">Bronze</div>
+        <div class="bar-track"><div class="bar-fill" id="bar-brnz"></div></div>
+        <div class="bar-count" id="bar-cnt-brnz"></div>
+      </div>
+    </div>
+
+    <div class="section-label">Game Listings by Segment</div>
+    <div id="seg-tables"></div>
+
+  </div>
+
+  <footer>
+    <span>UPHSD Molino · Programming 2 Machine Problem</span>
+    <span id="footer-info">No file loaded</span>
+  </footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

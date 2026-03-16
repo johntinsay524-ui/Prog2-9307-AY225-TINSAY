@@ -11,7 +11,16 @@ public class MP17_LongestEntry {
     static final int[] REQUIRED = {0, 1, 3, 4, 5, 6, 7, 8};
 
     public static void main(String[] args) throws Exception {
-        String filePath = args.length > 0 ? args[0] : "C:\\Users\\Cleo\\Documents\\Midterm\\Prog2-9307-AY225-TINSAY\\Midterm\\Machine Problem 3\\Java\\MachineProblem3.csv";
+        String filePath;
+
+        if (args.length > 0) {
+            filePath = args[0];
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter dataset file path: ");
+            filePath = scanner.nextLine().trim();
+        }
+
         List<String[]> rows = loadCSV(filePath);
         System.out.println("Loaded " + rows.size() + " data rows.\n");
         mp17_longestTextEntry(rows);
