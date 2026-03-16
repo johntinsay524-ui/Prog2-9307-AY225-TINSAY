@@ -1,0 +1,379 @@
+/* ── Variables ────────────────────────────────────────────────────────────── */
+:root {
+  --bg:           #0a0a0f;
+  --surface:      #12121a;
+  --surface2:     #1a1a26;
+  --border:       #2a2a3d;
+  --accent:       #00e5ff;
+  --accent2:      #7c3aed;
+  --accent3:      #f59e0b;
+  --pass:         #10b981;
+  --fail:         #ef4444;
+  --text:         #e8e8f0;
+  --muted:        #6b6b8a;
+  --font-display: 'Syne', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+/* ── Reset ────────────────────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────────── */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+header {
+  margin-bottom: 40px;
+  animation: fadeDown 0.6s ease both;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 10px;
+  border-radius: 2px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+h1 span { color: var(--accent); }
+
+.subtitle {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+/* ── Loaded Banner ────────────────────────────────────────────────────────── */
+.loaded-banner {
+  background: rgba(16,185,129,0.08);
+  border: 1px solid var(--pass);
+  border-radius: 10px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.5s ease both;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--pass);
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.tab.active { background: var(--accent2); color: white; }
+.tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
+
+/* ── Panels ───────────────────────────────────────────────────────────────── */
+.panel { display: none; animation: fadeUp 0.4s ease both; }
+.panel.active { display: block; }
+
+/* ── Shared Section Label ─────────────────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent2);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── MP17 — Longest Entry ─────────────────────────────────────────────────── */
+.winner-banner {
+  background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(124,58,237,0.1));
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.winner-icon { font-size: 28px; }
+
+.winner-text .label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.winner-text .value  { font-size: 18px; font-weight: 700; margin-top: 2px; }
+.winner-text .meta   { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.col-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s;
+  animation: fadeUp 0.4s ease both;
+}
+
+.col-card:hover       { border-color: var(--accent2); }
+.col-card.highlight   { border-color: var(--accent); background: rgba(0,229,255,0.05); }
+
+.col-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.col-value  { font-size: 15px; font-weight: 600; word-break: break-word; margin-bottom: 10px; }
+.col-chars  { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+.col-bar-wrap { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.col-bar      { height: 100%; background: var(--accent2); border-radius: 2px; transition: width 1s ease; }
+.col-card.highlight .col-bar { background: var(--accent); }
+
+/* ── MP18 — Remove Empty Rows ─────────────────────────────────────────────── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 20px;
+  text-align: center;
+  animation: fadeUp 0.4s ease both;
+}
+
+.stat-box .num { font-size: 40px; font-weight: 800; letter-spacing: -1px; }
+.stat-box .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+.stat-box.removed .num { color: var(--fail); }
+.stat-box.clean   .num { color: var(--pass); }
+
+.removed-list {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.removed-list-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.removed-item {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.removed-item:last-child { border-bottom: none; }
+.removed-item::before    { content: '→'; color: var(--fail); }
+
+.all-clean {
+  padding: 40px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--pass);
+}
+
+/* ── MP19 — Summary Report ────────────────────────────────────────────────── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  animation: fadeUp 0.4s ease both;
+}
+
+.summary-card.full { grid-column: 1 / -1; }
+
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.big-stat       { font-size: 42px; font-weight: 800; letter-spacing: -2px; color: var(--accent); }
+.big-stat-label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+.pass-fail-bar  { height: 10px; border-radius: 5px; background: var(--fail); overflow: hidden; margin: 12px 0; }
+.pass-fill      { height: 100%; background: var(--pass); border-radius: 5px; transition: width 1.2s ease; }
+
+.pf-labels   { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; }
+.pf-labels .p { color: var(--pass); }
+.pf-labels .f { color: var(--fail); }
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.score-row:last-child { border-bottom: none; }
+.score-row .key { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.score-row .val { font-weight: 600; color: var(--accent3); }
+
+.exam-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.exam-row:last-child { border-bottom: none; }
+.exam-rank  { font-family: var(--font-mono); font-size: 11px; color: var(--muted); width: 20px; text-align: right; flex-shrink: 0; }
+.exam-name  { flex: 1; font-size: 13px; font-weight: 600; }
+.exam-count { font-family: var(--font-mono); font-size: 12px; color: var(--accent); width: 28px; text-align: right; flex-shrink: 0; }
+
+.exam-bar-wrap { width: 80px; height: 4px; background: var(--border); border-radius: 2px; flex-shrink: 0; overflow: hidden; }
+.exam-bar      { height: 100%; background: var(--accent2); border-radius: 2px; transition: width 1s ease; }
+
+.pass-rate-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.pass-rate-row:last-child { border-bottom: none; }
+.pr-name { flex: 1; font-size: 12px; }
+
+.pr-bar-wrap { width: 100px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.pr-bar      { height: 100%; border-radius: 3px; transition: width 1s ease; }
+.pr-pct      { font-family: var(--font-mono); font-size: 11px; width: 40px; text-align: right; flex-shrink: 0; }
+
+.type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 4px;
+}
+
+.type-pill .count { font-family: var(--font-mono); font-size: 11px; opacity: 0.8; }
+
+/* ── Animations ───────────────────────────────────────────────────────────── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
